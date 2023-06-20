@@ -1,13 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:green/manage_profile.dart';
-import '../Customer_signup.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:flutter/gestures.dart';
-import 'package:flutter/cupertino.dart';
-import '../Customer_signup2.dart';
 import '../login_page.dart';
 
 //what is GetxController?
@@ -43,7 +37,7 @@ class AuthController extends GetxController {
       //if the user is null we will navigate to the login page, null means that the user is not logged in
       print("login page");
       Get.offAll(() =>
-          LoginPage()); //we used Get.offAll to navigate to the login page and remove all the previous pages from the stack
+          const LoginPage()); //we used Get.offAll to navigate to the login page and remove all the previous pages from the stack
     } else {
       //if the user is not null we will navigate to the welcome page
       //Get.offAll(() => WelcomePage(email: user.email!));
@@ -163,7 +157,73 @@ class AuthController extends GetxController {
     });
   }
 
-  Future<bool> login(
+  Future<bool> loginUser(
+      BuildContext context, String email, String password) async {
+    try {
+      await auth.signInWithEmailAndPassword(email: email, password: password);
+      return true; // Authentication successful
+    } catch (e) {
+      // Show error message using GetX's snackbar
+      Get.snackbar("About Login", "Login message",
+          backgroundColor: Colors.redAccent,
+          snackPosition: SnackPosition.BOTTOM,
+          titleText: const Text(
+            "Login falied",
+            style: TextStyle(color: Colors.white),
+          ),
+          messageText: Text(
+            e.toString(),
+            style: const TextStyle(color: Colors.white),
+          ));
+      return false; // Authentication failed
+    }
+  }
+
+  Future<bool> loginExpert(
+      BuildContext context, String email, String password) async {
+    try {
+      await auth.signInWithEmailAndPassword(email: email, password: password);
+      return true; // Authentication successful
+    } catch (e) {
+      // Show error message using GetX's snackbar
+      Get.snackbar("About Login", "Login message",
+          backgroundColor: Colors.redAccent,
+          snackPosition: SnackPosition.BOTTOM,
+          titleText: const Text(
+            "Login falied",
+            style: TextStyle(color: Colors.white),
+          ),
+          messageText: Text(
+            e.toString(),
+            style: const TextStyle(color: Colors.white),
+          ));
+      return false; // Authentication failed
+    }
+  }
+
+  Future<bool> loginSeller(
+      BuildContext context, String email, String password) async {
+    try {
+      await auth.signInWithEmailAndPassword(email: email, password: password);
+      return true; // Authentication successful
+    } catch (e) {
+      // Show error message using GetX's snackbar
+      Get.snackbar("About Login", "Login message",
+          backgroundColor: Colors.redAccent,
+          snackPosition: SnackPosition.BOTTOM,
+          titleText: const Text(
+            "Login falied",
+            style: TextStyle(color: Colors.white),
+          ),
+          messageText: Text(
+            e.toString(),
+            style: const TextStyle(color: Colors.white),
+          ));
+      return false; // Authentication failed
+    }
+  }
+
+  Future<bool> loginGardner(
       BuildContext context, String email, String password) async {
     try {
       await auth.signInWithEmailAndPassword(email: email, password: password);

@@ -1,13 +1,10 @@
 //import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:green/Customer_signup2.dart';
 import 'package:green/login_page.dart';
 import 'package:get/get.dart';
-import 'package:green/Customer_signup.dart';
 
 import 'auth/auth_controller.dart';
-import 'home_page.dart';
 
 //Routing: Get provides a simple and intuitive way to handle navigation between screens in your application.
 //It also provides some useful features like named routes and arguments.

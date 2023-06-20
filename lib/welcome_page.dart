@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:green/Customer_signup.dart';
-
+import 'Customer_signup.dart';
+import 'expert_signup.dart';
+import 'gardner_signup.dart';
+import 'seller_signup.dart';
 import 'login_page.dart';
 
 class WelcomePage extends StatelessWidget {
@@ -45,14 +47,16 @@ class WelcomePage extends StatelessWidget {
             const SizedBox(
               height: 10,
             ),
-            const Text(
-              'Are you a customer or a gardener?',
-              style: TextStyle(
-                fontSize: 40,
-                fontWeight: FontWeight.bold,
-                color: Color.fromARGB(255, 83, 150, 6),
+            Container(
+              alignment: Alignment.center, // Aligns the text to the end
+              child: const Text(
+                'Choose Account type',
+                style: TextStyle(
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
+                  color: Color.fromARGB(255, 83, 150, 6),
+                ),
               ),
-              textAlign: TextAlign.center,
             ),
             const SizedBox(
               height: 100,
@@ -72,9 +76,9 @@ class WelcomePage extends StatelessWidget {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30),
                   ),
-                  minimumSize: const Size(500, 62),
+                  minimumSize: const Size(400, 50),
                 ),
-                child: const Text('Customer', style: TextStyle(fontSize: 20)),
+                child: const Text('Customer', style: TextStyle(fontSize: 19)),
               ),
             ),
             const SizedBox(
@@ -83,16 +87,70 @@ class WelcomePage extends StatelessWidget {
             Container(
               margin: const EdgeInsets.only(left: 30, right: 30),
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const gardnerSignUpPage()),
+                  );
+                },
                 style: ElevatedButton.styleFrom(
                   foregroundColor: Colors.white,
                   backgroundColor: Colors.green,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30),
                   ),
-                  minimumSize: const Size(500, 62),
+                  minimumSize: const Size(400, 50),
                 ),
-                child: const Text('Gardener', style: TextStyle(fontSize: 20)),
+                child: const Text('Gardener', style: TextStyle(fontSize: 18)),
+              ),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            Container(
+              margin: const EdgeInsets.only(left: 30, right: 30),
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const sellerSignUpPage()),
+                  );
+                },
+                style: ElevatedButton.styleFrom(
+                  foregroundColor: Colors.white,
+                  backgroundColor: Colors.green,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30),
+                  ),
+                  minimumSize: const Size(400, 50),
+                ),
+                child: const Text('Seller', style: TextStyle(fontSize: 20)),
+              ),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            Container(
+              margin: const EdgeInsets.only(left: 30, right: 30),
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const expertSignUpPage()),
+                  );
+                },
+                style: ElevatedButton.styleFrom(
+                  foregroundColor: Colors.white,
+                  backgroundColor: Colors.green,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30),
+                  ),
+                  minimumSize: const Size(400, 50),
+                ),
+                child: const Text('Expert', style: TextStyle(fontSize: 20)),
               ),
             )
           ],

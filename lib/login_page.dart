@@ -1,14 +1,12 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:green/auth/auth_controller.dart';
-import 'package:green/Customer_signup.dart';
 import 'package:green/welcome_page.dart';
 
 import 'home_page.dart';
-
-import 'home_page.dart';
+import 'GardnerHomePage.dart';
+import 'SellerHomePage.dart';
+import 'ExpertHomePage.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -20,8 +18,93 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   var emailController = TextEditingController();
   var passwordController = TextEditingController();
+
   String selectedOption = 'User';
   List<String> options = ['User', 'Seller', 'Gardner', 'Expert'];
+
+  Future<void> loginUser(String email, String password) async {
+    // Authenticate user login
+    // Replace this with your authentication logic for the 'User' login option
+    bool isLoggedIn = await AuthController.instance.loginUser(
+        context, // Pass context here
+        email,
+        password);
+
+    // Navigate to home page only if authentication was successful
+    if (isLoggedIn) {
+      // ignore: use_build_context_synchronously
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const HomePage()),
+      );
+    } else {
+      // Show login error
+    }
+  }
+
+  Future<void> loginSeller(String email, String password) async {
+    // Authenticate seller login
+    // Replace this with your authentication logic for the 'Seller' login option
+    if (email == 'seller@example.com' && password == 'password') {
+      // Seller login successful
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const SellerHomePage()),
+      );
+    } else {
+      // Show login error
+    }
+  }
+
+  Future<void> loginGardner(String email, String password) async {
+    // Authenticate gardner login
+    // Replace this with your authentication logic for the 'Gardner' login option
+    if (email == 'gardner@example.com' && password == 'password') {
+      // Gardner login successful
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const GardnerHomePage()),
+      );
+    } else {
+      // Show login error
+    }
+  }
+
+  Future<void> loginExpert(String email, String password) async {
+    // Authenticate expert login
+    // Replace this with your authentication logic for the 'Expert' login option
+    if (email == 'expert@example.com' && password == 'password') {
+      // Expert login successful
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const ExpertHomePage()),
+      );
+    } else {
+      // Show login error
+    }
+  }
+
+  void performLogin() async {
+    String email = emailController.text.trim();
+    String password = passwordController.text.trim();
+
+    switch (selectedOption) {
+      case 'User':
+        await loginUser(email, password);
+        break;
+      case 'Seller':
+        await loginSeller(email, password);
+        break;
+      case 'Gardner':
+        await loginGardner(email, password);
+        break;
+      case 'Expert':
+        await loginExpert(email, password);
+        break;
+      default:
+        break;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,10 +118,9 @@ class _LoginPageState extends State<LoginPage> {
           children: [
             Container(
               margin: const EdgeInsets.only(left: 20, right: 20),
-              width: w, //to make the container full width
+              width: w,
               child: Center(
                 child: Column(
-                  //move the column to left of the screen
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Padding(
@@ -162,14 +244,14 @@ class _LoginPageState extends State<LoginPage> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Text(
-                          'Login Type:',
+                        const Text(
+                          'Login as:',
                           style: TextStyle(
                             color: Colors.grey,
                             fontSize: 15,
                           ),
                         ),
-                        SizedBox(width: 20),
+                        const SizedBox(width: 20),
                         DropdownButton<String>(
                           value: selectedOption,
                           icon: const Icon(Icons.arrow_drop_down),
@@ -199,83 +281,77 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                       ],
                     ),
+                    Row(
+                      //we created a row to put the forgot password text to the right
+                      //by putting an empty container in the left
+                      children: [
+                        Expanded(child: Container()),
+                        const Padding(
+                          padding: EdgeInsets.only(right: 230),
+                          child: Text(
+                            'Forgot Password?',
+                            style: TextStyle(
+                              color: Colors.grey,
+                              fontSize: 15,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                     const SizedBox(height: 20),
                     GestureDetector(
-                      onTap: () {
-                        // Forgot Password
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.only(right: 230),
-                        child: Text(
-                          'Forgot Password?',
-                          style: TextStyle(
-                            color: Colors.grey,
-                            fontSize: 15,
+                      onTap: performLogin,
+                      child: Container(
+                        width: w * 0.5,
+                        height: h * 0.08,
+                        margin: const EdgeInsets.only(top: 100),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(30),
+                          image: const DecorationImage(
+                            image: AssetImage('img/green-rectangle.png'),
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                        child: const Center(
+                          child: Text(
+                            'Sign In',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 30,
+                            ),
                           ),
                         ),
                       ),
                     ),
+                    SizedBox(height: h * 0.08),
+                    RichText(
+                      text: TextSpan(
+                        text: 'Don\'t have an account?',
+                        style: TextStyle(color: Colors.grey[500], fontSize: 16),
+                        children: [
+                          TextSpan(
+                            text: ' Create Account',
+                            style: const TextStyle(
+                              color: Colors.black,
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const WelcomePage(),
+                                  ),
+                                );
+                              },
+                          ),
+                        ],
+                      ),
+                    ),
                   ],
                 ),
-              ),
-            ),
-            GestureDetector(
-              onTap: () async {
-                bool isLoggedIn = await AuthController.instance.login(
-                  context,
-                  emailController.text.trim(),
-                  passwordController.text.trim(),
-                );
-
-                if (isLoggedIn) {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const HomePage()),
-                  );
-                }
-              },
-              child: Container(
-                width: w * 0.5,
-                height: h * 0.08,
-                margin: const EdgeInsets.only(top: 100),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(30),
-                  image: const DecorationImage(
-                    image: AssetImage('img/green-rectangle.png'),
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                child: const Center(
-                  child: Text(
-                    'Sign In',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 30,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(height: h * 0.08),
-            RichText(
-              text: TextSpan(
-                text: 'Don\'t have an account?',
-                style: TextStyle(color: Colors.grey[500], fontSize: 16),
-                children: [
-                  TextSpan(
-                    text: ' Create Account',
-                    style: const TextStyle(
-                      color: Colors.black,
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    recognizer: TapGestureRecognizer()
-                      ..onTap = () {
-                        Get.to(const WelcomePage());
-                      },
-                  ),
-                ],
               ),
             ),
           ],

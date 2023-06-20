@@ -1,7 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'auth/auth_controller.dart';
 
 class SignUpPage extends StatefulWidget {
@@ -100,13 +99,6 @@ class _SignUpPageState extends State<SignUpPage> {
                   fontSize: 30,
                   fontWeight: FontWeight.bold,
                 ),
-              ),
-            ),
-            Container(
-              width: 300,
-              child: Divider(
-                color: Colors.grey[300],
-                thickness: 4,
               ),
             ),
             const SizedBox(
@@ -329,7 +321,7 @@ class _SignUpPageState extends State<SignUpPage> {
               child: TextField(
                 controller:
                     phoneController, //to get the text from the textfield
-                obscureText: true, //to hide the password
+                obscureText: false, //to hide the password
                 decoration: InputDecoration(
                   hintText: 'phone number',
                   //to change the color of the hint text
@@ -588,6 +580,7 @@ class _SignUpPageState extends State<SignUpPage> {
               text: TextSpan(
                   recognizer: TapGestureRecognizer()
                     ..onTap = () {
+                      Get.back();
                       Get.back(); //to go back to the previous page
                     },
                   text: 'Already have an account?',
